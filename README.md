@@ -129,6 +129,7 @@ We engineered five domain-motivated features:
 ---
 
 ## 16. New Customer Prediction Demonstration
+
 ```python
 from src.predict import predict_customer
 
@@ -140,8 +141,8 @@ sample_customer = {
     'StreamingMovies': 'Yes', 'Contract': 'Month-to-month', 'PaperlessBilling': 'Yes',
     'PaymentMethod': 'Electronic check', 'MonthlyCharges': 74.50, 'TotalCharges': 149.00
 }
-
 result = predict_customer(sample_customer)
+```
 ## 17. Retention Strategy Recommendation Engine
 Our system enforces strict architectural separation between statistical ML inference and business logic:
 - **🔴 High Risk ($P \ge 60\%$):** 
@@ -177,7 +178,7 @@ Click the badge below to run the complete notebook with interactive sliders in G
 ### Option B: Run Locally on Your Machine
 ```bash
 # 1. Clone repository
-git clone https://github.com/[your-username]/customer-churn-retention-system.git
+git clone https://github.com/Rst06/customer-churn-retention-system.git
 cd customer-churn-retention-system
 
 # 2. Install dependencies
@@ -189,5 +190,7 @@ python src/train.py
 # 4. Run test prediction
 python src/predict.py
 
+# 5. Launch interactive web dashboard
+streamlit run app.py
 # 5. Launch interactive web dashboard
 streamlit run app.py
