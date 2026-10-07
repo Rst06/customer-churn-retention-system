@@ -1,196 +1,895 @@
 # 🛡️ AI-Based Customer Churn Prediction and Retention Strategy Recommendation System
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bJipMTTrMqYLjtn1DpAEj2a7Wy1h7e5E?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Machine Learning](https://img.shields.io/badge/Library-Scikit--Learn%20%7C%20XGBoost-orange)
-![Currency](https://img.shields.io/badge/Financials-Indian%20Rupees%20(%E2%82%B9)-green)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Scikit--Learn%20%7C%20XGBoost-orange)
+![Dataset](https://img.shields.io/badge/Dataset-Telco%20Customer%20Churn-green)
 
-> **B.Tech Artificial Intelligence & Data Science — Machine Learning Capstone Project**  
-> An End-to-End Decision-Support Pipeline for Telecom Subscriber Churn Prediction, Risk Stratification, Revenue-at-Risk Quantification, and Automated Retention Strategy Advisory.
+> **B.Tech Artificial Intelligence & Data Science — Machine Learning Project**  
+> An end-to-end Machine Learning system for predicting telecom customer churn, identifying customer risk levels, estimating revenue at risk, and recommending suitable customer retention strategies.
 
 ---
 
-## 1. Project Title
+## 📌 Project Title
+
 **AI-Based Customer Churn Prediction and Retention Strategy Recommendation System**
 
 ---
 
-## 2. Team Members & Affiliation
-- **Student Name:** [Your Name]
-- **Roll Number / PRN:** [Your Roll Number]
-- **Department:** Department of Artificial Intelligence & Data Science
-- **Degree:** Bachelor of Technology (B.Tech)
-- **Academic Year:** 2025–2026
+## 👥 Team Members
+
+| Name | Roll Number |
+|---|---|
+| **Roop Sai Teja.A** | **24EU01006** |
+| **Harsha Nandan.K** | **24EU01025** |
+| **Pradeep Matla** | **24EU01041** |
+
+**Department:** Artificial Intelligence & Data Science  
+**Degree:** Bachelor of Technology (B.Tech)
 
 ---
 
-## 3. Problem Statement
-Customer attrition (churn) directly impacts the recurring revenue of subscription-based telecommunications providers (e.g., Airtel, Jio, Vi). Acquiring a new telecom subscriber costs **5 to 7 times more** than retaining an existing one. Conventional telecom operations only react to cancellations after a customer files a port-out (MNP) request. The objective of this project is to build an end-to-end Machine Learning decision-support system that predicts customer churn probability ahead of time, quantifies monetary **Revenue at Risk (in ₹)**, and automatically generates explainable retention action plans.
+## 🎯 Problem Statement
+
+Customer churn is a major challenge for subscription-based businesses such as telecommunications companies.
+
+When customers discontinue their services, companies lose recurring revenue and may need to spend additional resources to acquire new customers.
+
+The objective of this project is to develop a Machine Learning-based system that can:
+
+- Predict whether a customer is likely to churn.
+- Calculate the probability of customer churn.
+- Classify customers into Low, Medium, and High-risk categories.
+- Identify important factors associated with customer churn.
+- Estimate potential monthly revenue at risk.
+- Recommend suitable customer retention strategies.
+- Save and reload the trained ML model.
+- Make predictions on new and unseen customer data.
+
+The project goes beyond simple churn prediction by connecting ML predictions with actionable business retention strategies.
 
 ---
 
-## 4. Business Motivation
-- **Protect Monthly Recurring Revenue (MRR):** Identify accounts likely to cancel before their billing cycle ends.
-- **Capital Efficiency:** Prevent wasteful spending of retention discounts on customers who are already loyal.
-- **Actionable Decision Support:** Bridge the gap between an abstract probability score and tangible marketing/customer success interventions in Indian Rupees (₹).
+# 💼 Business Motivation
+
+Customer churn prediction can help telecom companies make proactive business decisions.
+
+### Our system aims to:
+
+- 📉 Reduce customer churn.
+- 💰 Protect recurring monthly revenue.
+- 🎯 Identify high-risk customers.
+- 📊 Support data-driven customer retention.
+- 🤝 Provide personalized retention recommendations.
+- 💡 Help businesses prioritize retention campaigns.
+
+Instead of waiting until a customer leaves, the company can identify customers who are likely to churn and take preventive action.
 
 ---
 
-## 5. Dataset & Data Source
-- **Dataset:** IBM / Kaggle Telco Customer Churn Dataset (`WA_Fn-UseC_-Telco-Customer-Churn.csv`).
-- **Scale:** 7,043 subscriber records.
-- **Target Variable:** `Churn` (`Yes` / `No`) — Binary classification with ~26.5% minority class representation.
-- **Currency Context:** Converted to Indian Rupees (₹) at standard conversion rate (1 USD ≈ ₹83) to represent realistic Indian broadband and postpaid plan billing (₹1,500 – ₹9,800/month).
+# 📊 Dataset
+
+### Dataset Name
+
+**IBM / Kaggle Telco Customer Churn Dataset**
+
+### Dataset File
+
+```text
+WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
+
+### Dataset Characteristics
+
+- Approximately **7,043 customer records**
+- Customer demographic information
+- Account information
+- Subscription information
+- Service information
+- Billing information
+- Churn status
+
+### Target Variable
+
+```text
+Churn
+```
+
+Values:
+
+```text
+Yes
+No
+```
+
+This is a **binary classification problem**.
 
 ---
 
-## 6. Dataset Features & Descriptions
+# 🧾 Dataset Features
 
-| Category | Attributes | Business Description |
-| :--- | :--- | :--- |
-| **Demographics** | `gender`, `SeniorCitizen`, `Partner`, `Dependents` | Subscriber demographic profile and household status |
-| **Account Tenancy** | `tenure`, `Contract`, `PaperlessBilling`, `PaymentMethod` | Subscription duration, billing mechanism, and contract type |
-| **Subscribed Services** | `PhoneService`, `MultipleLines`, `InternetService`, `OnlineSecurity`, `OnlineBackup`, `DeviceProtection`, `TechSupport`, `StreamingTV`, `StreamingMovies` | Catalog of active connectivity and add-on subscriptions |
-| **Financials (₹)** | `MonthlyCharges` (₹), `TotalCharges` (₹) | Current monthly plan rate and cumulative lifetime spend |
-| **Target** | `Churn` | Whether the customer terminated service within the last month |
-
----
-
-## 7. Methodology
+| Category | Features |
+|---|---|
+| Demographics | gender, SeniorCitizen, Partner, Dependents |
+| Account | tenure, Contract, PaperlessBilling, PaymentMethod |
+| Services | PhoneService, MultipleLines, InternetService |
+| Security & Support | OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport |
+| Entertainment | StreamingTV, StreamingMovies |
+| Financial | MonthlyCharges, TotalCharges |
+| Target | Churn |
 
 ---
 
-## 8. Exploratory Data Analysis (EDA) Insights
-1. **Contract Type Dominance:** Subscribers on **Month-to-month contracts** exhibit an alarming **42.7% churn rate**, compared to just **11.3%** for 1-year and **2.8%** for 2-year contracts.
-2. **Tenure Critical Window:** Highest churn occurs within the first **0 to 12 months** of customer onboarding. Customers surviving past 48 months show loyal retention.
-3. **Fiber Optic Disparity:** Fiber optic users churn at **41.9%**, significantly higher than DSL (19.0%), driven by high monthly costs without adequate bundling.
-4. **Protective Add-ons:** Subscribing to **TechSupport** and **OnlineSecurity** cuts churn probability by more than half.
-5. **Payment Friction:** Electronic check users exhibit 45.3% churn, compared to < 16% for automated bank autopay and credit card billing.
+# 🔄 Project Workflow
+
+```text
+                 Telco Customer Dataset
+                          │
+                          ▼
+                 Data Understanding
+                          │
+                          ▼
+                    EDA & Analysis
+                          │
+                          ▼
+                 Data Preprocessing
+                          │
+                          ▼
+                 Feature Engineering
+                          │
+                          ▼
+                 Train/Test Split
+                          │
+                          ▼
+              ┌───────────┼───────────┐
+              ▼           ▼           ▼
+        Logistic       Random       XGBoost
+       Regression      Forest
+              │           │           │
+              └───────────┼───────────┘
+                          ▼
+                  Model Comparison
+                          │
+                          ▼
+               Hyperparameter Tuning
+                          │
+                          ▼
+                  Best ML Model
+                          │
+                          ▼
+                Churn Probability
+                          │
+                          ▼
+                   Risk Classification
+                          │
+              ┌───────────┼───────────┐
+              ▼           ▼           ▼
+             Low       Medium        High
+              │           │           │
+              └───────────┼───────────┘
+                          ▼
+              Retention Recommendation
+                          │
+                          ▼
+                  Business Insights
+                          │
+                          ▼
+               Revenue-at-Risk Analysis
+                          │
+                          ▼
+                 Save Model using Joblib
+                          │
+                          ▼
+                   Reload Model
+                          │
+                          ▼
+               New Customer Prediction
+```
 
 ---
 
-## 9. Data Preprocessing & Leakage Prevention
-- **Type Conversion:** Converted `TotalCharges` from whitespace strings to float. Imputed ₹0.0 for new customers (`tenure = 0`).
-- **Target Mapping:** Standardized `Yes` $\rightarrow$ 1, `No` $\rightarrow$ 0.
-- **Zero Data Leakage:** Imputers and scalers were enclosed inside Scikit-Learn's `ColumnTransformer` and fit **strictly on the 80% training split**.
-- **Stratified Partition:** Used `stratify=y` on the 80/20 train-test split to ensure identical class distributions across both partitions.
+# 🔍 Exploratory Data Analysis
+
+The project performs exploratory analysis to understand customer behavior and identify patterns associated with churn.
+
+### EDA includes:
+
+- Dataset shape and structure
+- Data types
+- Missing-value analysis
+- Duplicate-value analysis
+- Churn distribution
+- Numerical feature distributions
+- Categorical feature distributions
+- Churn vs Contract
+- Churn vs Tenure
+- Churn vs Monthly Charges
+- Churn vs Internet Service
+- Churn vs Payment Method
+- Churn vs Technical Support
+- Churn vs Online Security
+- Correlation analysis
+
+### Example business questions
+
+- Are month-to-month customers more likely to churn?
+- Does short tenure increase churn probability?
+- Does higher monthly billing affect churn?
+- Does technical support reduce churn?
+- Which payment methods are associated with higher churn?
 
 ---
 
-## 10. Feature Engineering
-We engineered five domain-motivated features:
-1. `service_count`: Total active services subscribed (measures customer switching barrier/stickiness).
-2. `tenure_group`: Lifecycle cohorts (`0-12m`, `13-24m`, `25-48m`, `49-72m`).
-3. `avg_monthly_charges`: Cumulative lifetime spend divided by tenure (`TotalCharges / (tenure + 1)`).
-4. `monthly_to_total_ratio`: Identifies new high-spend accounts vs mature long-term accounts.
-5. `has_security_techsupport`: Interaction flag indicating complete technical support adoption.
+# 🧹 Data Preprocessing
 
----
+The following preprocessing steps are performed:
 
-## 11. Machine Learning Models Evaluated
-1. **Logistic Regression:** Linear baseline with balanced class weights for direct odds-ratio interpretability.
-2. **Random Forest Classifier:** Bagging ensemble of 150 decision trees capturing non-linear relationships.
-3. **XGBoost Classifier:** Extreme Gradient Boosted regularized decision trees.
+### 1. Missing Value Handling
 
----
-
-## 12. Model Comparison & Benchmarking Results
-
-*Evaluated on the 20% Stratified Unseen Test Set (1,409 customers):*
-
-| Model Name | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **Logistic Regression (Balanced)** | 80.12% | 64.82% | 57.38% | 0.6087 | 0.8465 |
-| **Random Forest Classifier** | 79.65% | 63.91% | 52.14% | 0.5743 | 0.8351 |
-| **XGBoost (Base)** | 80.48% | 65.52% | 56.42% | 0.6063 | 0.8491 |
-| **XGBoost (Tuned Pipeline)** 🏆 | **81.24%** | **67.20%** | **58.42%** | **0.6251** | **0.8542** |
-
----
-
-## 13. Hyperparameter Tuning
-- **Method:** 5-Fold Stratified `GridSearchCV` on the full end-to-end pipeline.
-- **Search Grid:** `n_estimators: [100, 150]`, `max_depth: [3, 4]`, `learning_rate: [0.05, 0.1]`.
-- **Optimal Hyperparameters:** `max_depth=3`, `learning_rate=0.1`, `n_estimators=100`.
-- **Result:** Tuning boosted test ROC-AUC to **0.8542** and test F1-score to **0.6251**, effectively regularizing tree depth against overfitting.
-
----
-
-## 14. Final Model Selection
-**XGBoost (Tuned Pipeline)** was chosen as the champion model.  
-- **Business Rationale:** In telecom customer churn, **Recall and ROC-AUC** are much more critical than raw Accuracy. A false negative (missing a churning customer) results in losing the subscriber's entire Customer Lifetime Value (₹50,000+ LTV), whereas a false positive only sends a low-cost promotional email.
-- XGBoost demonstrated the highest discriminative ranking power (0.8542 AUC) across all decision thresholds.
-
----
-
-## 15. Model Persistence
-- The complete pipeline (Feature Engineering + Imputation + Scaling + One-Hot Encoding + Tuned XGBoost) was serialized to `models/customer_churn_retention_pipeline.joblib`.
-- Loading with `joblib.load()` requires **zero retraining** and accepts raw JSON/dictionary inputs for instantaneous real-time prediction.
-
----
-
-## 16. New Customer Prediction Demonstration
+`TotalCharges` is converted from string to numeric format.
 
 ```python
-from src.predict import predict_customer
-
-sample_customer = {
-    'gender': 'Female', 'SeniorCitizen': 0, 'Partner': 'No', 'Dependents': 'No',
-    'tenure': 2, 'PhoneService': 'Yes', 'MultipleLines': 'No',
-    'InternetService': 'Fiber optic', 'OnlineSecurity': 'No', 'OnlineBackup': 'No',
-    'DeviceProtection': 'No', 'TechSupport': 'No', 'StreamingTV': 'Yes',
-    'StreamingMovies': 'Yes', 'Contract': 'Month-to-month', 'PaperlessBilling': 'Yes',
-    'PaymentMethod': 'Electronic check', 'MonthlyCharges': 74.50, 'TotalCharges': 149.00
-}
-result = predict_customer(sample_customer)
+df["TotalCharges"] = pd.to_numeric(
+    df["TotalCharges"],
+    errors="coerce"
+)
 ```
-## 17. Retention Strategy Recommendation Engine
-Our system enforces strict architectural separation between statistical ML inference and business logic:
-- **🔴 High Risk ($P \ge 60\%$):** 
-  - 1-Year contract lock-in offer with 20% discount.
-  - 6 Months of free 24/7 Priority Tech Support and Router Security pack.
-  - Instant ₹500 bill credit on enrolling in UPI / Bank Autopay.
-- **🟡 Medium Risk ($35\% \le P < 60\%$):** 
-  - Proactive customer relationship check-in call.
-  - Complimentary OTT bundle / speed boost loyalty milestones.
-- **🟢 Low Risk ($P < 35\%$):** 
-  - Standard service engagement; cross-sell candidate for Smart Home & IoT add-ons.
+
+Missing values are handled appropriately before model training.
+
+### 2. Target Encoding
+
+```text
+Yes → 1
+No  → 0
+```
+
+### 3. Categorical Encoding
+
+Categorical variables are transformed using:
+
+```text
+OneHotEncoder
+```
+
+### 4. Numerical Scaling
+
+Numerical variables are scaled where required using:
+
+```text
+StandardScaler
+```
+
+### 5. Train/Test Split
+
+The dataset is divided into:
+
+```text
+80% → Training
+20% → Testing
+```
+
+Stratified splitting is used to maintain the class distribution.
 
 ---
 
-## 18. Business Revenue at Risk Analysis (INR / ₹)
-- **Calculation Formula:**
-  $$\text{Monthly Revenue at Risk (MRR)} = \sum_{i \in \text{High Risk}} \text{MonthlyCharges}_i \times 83$$
-- **Portfolio Exposure (Test Cohort):**
-  - **Total Monthly Billing Evaluated:** ~₹77,40,000
-  - **High-Risk Monthly Revenue at Risk:** **~₹35,50,000 / month** (45.8% of portfolio revenue)
-  - **Annualized Exposure:** Over **₹4.26 Crore** in potential recurring billing loss.
-- **Business Meaning:** Gives leadership a clear financial justification to fund retention discount campaigns.
+# 🧠 Feature Engineering
+
+Additional meaningful features are created to improve the ML model and provide better business insights.
+
+Examples include:
+
+### Service Count
+
+Counts the number of subscribed additional services.
+
+```text
+service_count
+```
+
+### Tenure Group
+
+Customers are grouped according to their subscription duration.
+
+```text
+New
+Growing
+Loyal
+Long-Term
+```
+
+### Average Monthly Charges
+
+A derived financial feature based on customer spending.
+
+### Monthly-to-Total Charge Ratio
+
+Helps identify differences between newer and longer-term customers.
+
+### Support & Security Indicator
+
+Identifies customers who have adopted services such as:
+
+- Online Security
+- Technical Support
+
+Feature engineering is performed only when the feature has a meaningful relationship with the business problem.
 
 ---
 
-## 19. How to Run the Project
+# 🤖 Machine Learning Models
 
-### Option A: Run Live in Google Colab (Recommended)
-Click the badge below to run the complete notebook with interactive sliders in Google Colab:
+At least three Machine Learning models are evaluated.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bJipMTTrMqYLjtn1DpAEj2a7Wy1h7e5E?usp=sharing)
+## 1. Logistic Regression
 
-### Option B: Run Locally on Your Machine
+Used as an interpretable classification baseline.
+
+Advantages:
+
+- Simple
+- Fast
+- Easy to interpret
+- Suitable for binary classification
+
+---
+
+## 2. Random Forest
+
+An ensemble learning algorithm that can capture non-linear relationships between customer characteristics and churn.
+
+Advantages:
+
+- Handles non-linear relationships
+- Robust to many feature types
+- Provides feature importance
+
+---
+
+## 3. XGBoost
+
+A gradient boosting algorithm that is effective for structured/tabular datasets.
+
+Advantages:
+
+- Strong predictive performance
+- Handles complex relationships
+- Supports regularization
+- Suitable for classification problems
+
+---
+
+# 📈 Model Evaluation
+
+The models are compared using:
+
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- ROC-AUC
+
+### Confusion Matrix
+
+A confusion matrix is used to understand:
+
+- True Positives
+- True Negatives
+- False Positives
+- False Negatives
+
+### ROC Curve
+
+ROC-AUC is used to evaluate how effectively the model separates customers who churn from customers who do not churn.
+
+---
+
+# 🏆 Model Comparison
+
+The final model comparison table is generated directly from the actual Colab execution.
+
+| Model | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
+|---|---:|---:|---:|---:|---:|
+| Logistic Regression | Generated from experiment | Generated | Generated | Generated | Generated |
+| Random Forest | Generated from experiment | Generated | Generated | Generated | Generated |
+| XGBoost | Generated from experiment | Generated | Generated | Generated | Generated |
+| Tuned Best Model | Generated from experiment | Generated | Generated | Generated | Generated |
+
+> **Note:** Actual values should be updated here after running the final Colab notebook. No performance values are manually assumed or copied from another implementation.
+
+---
+
+# ⚙️ Hyperparameter Tuning
+
+Hyperparameter optimization is performed using:
+
+```text
+GridSearchCV
+```
+
+or
+
+```text
+RandomizedSearchCV
+```
+
+The tuning process searches for the best combination of model parameters.
+
+Example XGBoost parameters:
+
+```text
+n_estimators
+max_depth
+learning_rate
+subsample
+```
+
+The optimized model is evaluated again on the unseen test set.
+
+---
+
+# 🏅 Final Model Selection
+
+The final model is selected based on the actual experimental results.
+
+For customer churn prediction, **Recall and ROC-AUC are particularly important** because failing to identify a customer who is likely to churn can result in lost business.
+
+However, model selection is based on the overall evaluation rather than automatically assuming that one algorithm will be the best.
+
+---
+
+# 💾 Model Persistence
+
+The complete preprocessing and ML pipeline is saved using **Joblib**.
+
+Example:
+
+```python
+import joblib
+
+joblib.dump(
+    best_model,
+    "customer_churn_retention_pipeline.joblib"
+)
+```
+
+The model can later be loaded without retraining:
+
+```python
+loaded_model = joblib.load(
+    "customer_churn_retention_pipeline.joblib"
+)
+```
+
+This demonstrates that the trained model can be reused for real-world predictions.
+
+---
+
+# 🔮 New Customer Prediction
+
+The system accepts new customer information and generates:
+
+```text
+Churn Prediction
+Churn Probability
+Risk Level
+Retention Recommendation
+```
+
+Example:
+
+```text
+Customer Churn Prediction
+-------------------------
+Churn Probability : 78.5%
+Prediction        : Likely to Churn
+Risk Level        : HIGH
+```
+
+The prediction is generated using the saved model without retraining.
+
+---
+
+# 🚦 Customer Risk Classification
+
+Customers are divided into three risk categories.
+
+### 🔴 High Risk
+
+```text
+Churn Probability ≥ 70%
+```
+
+These customers require immediate retention attention.
+
+### 🟡 Medium Risk
+
+```text
+40% ≤ Churn Probability < 70%
+```
+
+These customers should be monitored and provided with targeted offers.
+
+### 🟢 Low Risk
+
+```text
+Churn Probability < 40%
+```
+
+These customers generally require no immediate retention intervention.
+
+> The exact thresholds can be adjusted based on business requirements.
+
+---
+
+# 💡 Retention Strategy Recommendation
+
+This is the main business-focused feature of the project.
+
+The Machine Learning model predicts **churn probability**, while a separate rule-based business layer converts the prediction into an actionable recommendation.
+
+### 🔴 High-Risk Customer
+
+Possible recommendations:
+
+- Offer a long-term contract discount.
+- Provide technical support benefits.
+- Offer security-service bundles.
+- Provide personalized promotional offers.
+- Encourage automated payment methods.
+
+### 🟡 Medium-Risk Customer
+
+Possible recommendations:
+
+- Provide loyalty benefits.
+- Offer targeted promotional campaigns.
+- Conduct proactive customer-support follow-ups.
+- Monitor future churn probability.
+
+### 🟢 Low-Risk Customer
+
+Possible recommendations:
+
+- Continue normal customer engagement.
+- Offer optional cross-selling opportunities.
+- Provide loyalty benefits.
+
+The recommendation engine is intentionally separated from the ML model so that the business rules can be changed without retraining the model.
+
+---
+
+# 💰 Revenue-at-Risk Analysis
+
+The project estimates the potential monthly revenue associated with high-risk customers.
+
+A simplified calculation is:
+
+```text
+Monthly Revenue at Risk
+=
+Sum of Monthly Charges
+of High-Risk Customers
+```
+
+If currency conversion is required for presentation, the conversion rate should be clearly documented and applied consistently.
+
+### Important
+
+Revenue at risk represents **potential financial exposure**, not guaranteed future loss.
+
+The calculation helps businesses understand the financial importance of customer retention.
+
+---
+
+# 🖥️ Application / Dashboard
+
+A Streamlit dashboard can be used to demonstrate the project.
+
+The dashboard can display:
+
+### Business Overview
+
+- Total customers
+- Churn rate
+- High-risk customers
+- Medium-risk customers
+- Low-risk customers
+- Estimated revenue at risk
+
+### Model Performance
+
+- Accuracy
+- Precision
+- Recall
+- F1-Score
+- ROC-AUC
+- Confusion Matrix
+
+### Customer Prediction
+
+Users can enter customer information and receive:
+
+```text
+Churn Probability
+Risk Level
+Retention Recommendation
+```
+
+---
+
+# 🛠️ Technologies Used
+
+### Programming
+
+- Python
+
+### Data Processing
+
+- Pandas
+- NumPy
+
+### Visualization
+
+- Matplotlib
+- Seaborn
+
+### Machine Learning
+
+- Scikit-learn
+- XGBoost
+
+### Model Persistence
+
+- Joblib
+
+### Dashboard
+
+- Streamlit
+
+### Development Environment
+
+- Google Colab
+- Jupyter Notebook
+- GitHub
+
+---
+
+# 📁 Project Structure
+
+```text
+customer-churn-retention-system/
+│
+├── data/
+│   └── Telco-Customer-Churn.csv
+│
+├── notebooks/
+│   └── customer_churn_project.ipynb
+│
+├── models/
+│   └── customer_churn_retention_pipeline.joblib
+│
+├── src/
+│   ├── preprocessing.py
+│   ├── train.py
+│   ├── predict.py
+│   └── retention_strategy.py
+│
+├── app.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+# 🚀 How to Run
+
+## Option 1 — Google Colab
+
+Open the project notebook in Google Colab and run the cells sequentially.
+
+The notebook performs:
+
+```text
+Dataset Loading
+↓
+EDA
+↓
+Preprocessing
+↓
+Feature Engineering
+↓
+Model Training
+↓
+Model Comparison
+↓
+Hyperparameter Tuning
+↓
+Model Saving
+↓
+Prediction
+```
+
+---
+
+## Option 2 — Run Locally
+
+Clone the repository:
+
 ```bash
-# 1. Clone repository
 git clone https://github.com/Rst06/customer-churn-retention-system.git
+```
+
+Enter the project directory:
+
+```bash
 cd customer-churn-retention-system
+```
 
-# 2. Install dependencies
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
+```
 
-# 3. Train models and export pipeline
+Train the model:
+
+```bash
 python src/train.py
+```
 
-# 4. Run test prediction
+Run prediction:
+
+```bash
 python src/predict.py
+```
 
-# 5. Launch interactive web dashboard
+Launch the Streamlit application:
+
+```bash
 streamlit run app.py
-# 5. Launch interactive web dashboard
-streamlit run app.py
+```
+
+---
+
+# 📚 Project Deliverables
+
+The project provides:
+
+- ✅ Real-world dataset
+- ✅ Exploratory Data Analysis
+- ✅ Data preprocessing
+- ✅ Feature engineering
+- ✅ Feature selection/analysis
+- ✅ Three or more ML models
+- ✅ Model comparison
+- ✅ Hyperparameter tuning
+- ✅ Best-model selection
+- ✅ Integrated ML pipeline
+- ✅ Joblib model persistence
+- ✅ Model reload
+- ✅ New customer prediction
+- ✅ Customer risk classification
+- ✅ Retention strategy recommendation
+- ✅ Revenue-at-risk analysis
+- ✅ Business dashboard
+
+---
+
+# 🌍 Real-World Application
+
+The proposed system can help subscription-based businesses identify customers who are likely to leave.
+
+A telecom company can use the system to:
+
+1. Identify high-risk customers.
+2. Understand the factors contributing to churn.
+3. Estimate potential revenue exposure.
+4. Prioritize retention campaigns.
+5. Provide personalized offers.
+6. Monitor customer risk over time.
+
+The same concept can be adapted to:
+
+- Telecom
+- Internet Service Providers
+- Streaming platforms
+- SaaS companies
+- Subscription businesses
+- Banking
+- Insurance
+- E-commerce
+
+---
+
+# ⚠️ Limitations
+
+- The dataset is based on a publicly available Telco customer dataset.
+- Predictions depend on the quality and representativeness of the training data.
+- Churn probability is not a guarantee that a customer will leave.
+- Retention recommendations are business rules and should be validated using real company data.
+- Revenue-at-risk is an estimate rather than guaranteed financial loss.
+- Model performance may change when applied to a different telecom company or market.
+
+---
+
+# 🔮 Future Enhancements
+
+Future versions could include:
+
+- Real-time customer data integration.
+- Advanced explainable AI using SHAP.
+- Customer lifetime value prediction.
+- Automated campaign generation.
+- A/B testing of retention offers.
+- Real-time churn monitoring.
+- Cloud deployment.
+- Database integration.
+- Automated email/SMS retention campaigns.
+- Deep Learning-based churn prediction.
+
+---
+
+# 👨‍💻 Team
+
+### Roopsai.A
+**24EU01006**
+
+### Harsha Nandan.K
+**24EU01025**
+
+### Pradeep Matla
+**24EU01041**
+
+**B.Tech — Artificial Intelligence & Data Science**
+
+---
+
+# 📌 Conclusion
+
+This project demonstrates a complete Machine Learning workflow for a real-world business problem.
+
+The system moves beyond simple customer churn prediction by connecting:
+
+```text
+Machine Learning
+      +
+Customer Risk Analysis
+      +
+Business Insights
+      +
+Revenue-at-Risk
+      +
+Retention Strategy
+```
+
+The final objective is to help businesses make proactive, data-driven customer retention decisions.
+
+---
+
+## ⭐ Project Highlights
+
+```text
+✔ Real-world Telecom Dataset
+✔ Complete EDA
+✔ Data Preprocessing
+✔ Feature Engineering
+✔ Multiple ML Models
+✔ Hyperparameter Tuning
+✔ Model Comparison
+✔ Model Persistence
+✔ New Customer Prediction
+✔ Risk Classification
+✔ Retention Recommendation
+✔ Revenue-at-Risk Analysis
+✔ Business Decision Support
+✔ Google Colab
+✔ GitHub
+✔ Streamlit Dashboard
+```
+
+---
+
+### 📜 Disclaimer
+
+This project is developed for academic and educational purposes. The churn predictions, revenue-at-risk calculations, and retention recommendations should not be treated as guaranteed business outcomes without validation using real organizational data.
